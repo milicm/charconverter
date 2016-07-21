@@ -20,27 +20,22 @@ public class ConvRule implements Serializable {
 	@Column(unique = true)
 	private String ruleCode;
 	@Column
-	private String ruleValue;
+	private String ruleFrom;
+	@Column
+	private String ruleTo;
 	@Column
 	private String ruleDesc;
 
 	public ConvRule() {
-
+		super();
 	}
 
-	public ConvRule(String ruleCode, String ruleValue, String ruleDesc) {
+	public ConvRule(String ruleCode, String ruleFrom, String ruleTo, String ruleDesc) {
 		super();
 		this.ruleCode = ruleCode;
-		this.ruleValue = ruleValue;
+		this.ruleFrom = ruleFrom;
+		this.ruleTo = ruleTo;
 		this.ruleDesc = ruleDesc;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getRuleCode() {
@@ -51,12 +46,20 @@ public class ConvRule implements Serializable {
 		this.ruleCode = ruleCode;
 	}
 
-	public String getRuleValue() {
-		return ruleValue;
+	public String getRuleFrom() {
+		return ruleFrom;
 	}
 
-	public void setRuleValue(String ruleCode) {
-		this.ruleValue = ruleCode;
+	public void setRuleFrom(String ruleFrom) {
+		this.ruleFrom = ruleFrom;
+	}
+
+	public String getRuleTo() {
+		return ruleTo;
+	}
+
+	public void setRuleTo(String ruleTo) {
+		this.ruleTo = ruleTo;
 	}
 
 	public String getRuleDesc() {
@@ -76,7 +79,8 @@ public class ConvRule implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj != null && obj instanceof ConvRule) {
 			ConvRule c = (ConvRule) obj;
-			return c.getRuleCode().equals(this.getRuleCode()) && c.getRuleValue().equals(this.getRuleValue());
+			return c.getRuleCode().equals(this.getRuleCode()) && c.getRuleFrom().equals(this.getRuleFrom())
+					&& c.getRuleTo().equals(this.getRuleTo());
 		}
 		return false;
 	}
