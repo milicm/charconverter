@@ -18,7 +18,7 @@ public class ConvRuleRepositoryTests extends CharConverterApplicationTests {
 	private ConvRuleRepository convRuleRepository;
 
 	@Test
-	public void save() {
+	public void findAll() {
 		List<ConvRule> convRules = convRuleRepository.findAll();
 		assertNotNull(convRules);
 		assertFalse(convRules.isEmpty());
