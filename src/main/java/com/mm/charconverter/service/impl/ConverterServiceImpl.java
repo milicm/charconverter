@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mm.charconverter.domain.ConvRule;
-import com.mm.charconverter.exception.ConvTypeException;
+import com.mm.charconverter.exception.ConverterException;
 import com.mm.charconverter.repository.ConvRuleRepository;
 import com.mm.charconverter.service.ConverterService;
 import com.mm.charconverter.util.ConvType;
@@ -16,7 +16,7 @@ public class ConverterServiceImpl implements ConverterService {
 	private ConvRuleRepository convRuleRepository;
 
 	@Override
-	public String convert(String text, ConvType convType) throws ConvTypeException {
+	public String convert(String text, ConvType convType) throws ConverterException {
 		ConvRule rule = convRuleRepository.findByRuleCode(convType.toString());
 		int i = 0;
 		String[] from = rule.getRuleFrom().split(" ");

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mm.charconverter.domain.dto.ConverterObject;
-import com.mm.charconverter.exception.ConvTypeException;
+import com.mm.charconverter.exception.ConverterException;
 import com.mm.charconverter.service.ConverterService;
 import com.mm.charconverter.util.ConvType;
 import com.mm.charconverter.util.RestConst;
@@ -26,13 +26,13 @@ public class ConverterRestController {
 	public @ResponseBody ConverterObject convert(@RequestBody(required = true) ConverterObject convObjReq) {
 		try {
 			if (convObjReq.getType() == null || convObjReq.getText() == null) {
-				throw new ConvTypeException("Unknown text or conversion type!");
+				throw new ConverterException("Unknown text or conversion type!");
 			}
 			ConvType convType = ConvType.findByType(convObjReq.getType());
 			String convertedText = converterService.convert(convObjReq.getText(), convType);
 			return new ConverterObject(HttpStatus.OK.value(), convObjReq.getType(), convObjReq.getText(),
 					convertedText);
-		} catch (ConvTypeException ex) {
+		} catch (ConverterException ex) {
 			return new ConverterObject(HttpStatus.BAD_REQUEST.value(), convObjReq.getType(), convObjReq.getText(),
 					ex.getMessage());
 		}
