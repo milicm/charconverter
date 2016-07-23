@@ -18,8 +18,8 @@ public class ConverterServiceImpl implements ConverterService {
 	@Override
 	public String convert(String text, ConvType convType) throws ConvTypeException {
 		ConvRule rule = convRuleRepository.findByRuleCode(convType.toString());
-		if (rule == null) {
-			throw new ConvTypeException("Unknown conversion type!");
+		if (rule == null || text == null) {
+			throw new ConvTypeException("Unknown text or conversion type!");
 		}
 		int i = 0;
 		String[] from = rule.getRuleFrom().split(" ");
