@@ -25,11 +25,16 @@ public class ConverterRestController {
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ConverterObject convert(@RequestBody(required = true) ConverterObject convObjReq) {
 		try {
+			if (convObjReq.getType() == null || convObjReq.getText() == null) {
+				throw new ConvTypeException("Unknown text or conversion type!");
+			}
 			ConvType convType = ConvType.findByType(convObjReq.getType());
 			String convertedText = converterService.convert(convObjReq.getText(), convType);
-			return new ConverterObject(HttpStatus.OK.value(), convObjReq.getType(), convObjReq.getText(), convertedText);
+			return new ConverterObject(HttpStatus.OK.value(), convObjReq.getType(), convObjReq.getText(),
+					convertedText);
 		} catch (ConvTypeException ex) {
-			return new ConverterObject(HttpStatus.BAD_REQUEST.value(), convObjReq.getType(), convObjReq.getText(), ex.getMessage());
+			return new ConverterObject(HttpStatus.BAD_REQUEST.value(), convObjReq.getType(), convObjReq.getText(),
+					ex.getMessage());
 		}
 	}
 }
